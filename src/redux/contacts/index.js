@@ -1,2 +1,3 @@
-export * from '../contacts/slice';
-export * from '../contacts/selectors';
+export * from './contactApi';
+export * from './filterSlice';
+export * from './selectors';

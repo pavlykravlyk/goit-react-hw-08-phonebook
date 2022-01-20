@@ -1,7 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createSlice } from '@reduxjs/toolkit';
-
-////////////////////// CONTACTS ///////////////////////////////
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
@@ -36,23 +33,8 @@ export const contactApi = createApi({
   }),
 });
 
-console.log(contactApi);
-
 export const {
   useGetAllContactsQuery,
   useDeleteContactMutation,
   useAddContactMutation,
 } = contactApi;
-
-////////////////////// FILTER ///////////////////////////////
-
-export const filterSlice = createSlice({
-  name: 'contactFilter',
-  initialState: '',
-
-  reducers: {
-    changeFilter: (_, { payload }) => payload,
-  },
-});
-
-export const { changeFilter } = filterSlice.actions;

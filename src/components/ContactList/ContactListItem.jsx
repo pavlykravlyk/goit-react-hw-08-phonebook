@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDeleteContactMutation } from 'redux/contacts/slice';
+import { useDeleteContactMutation } from 'redux/contacts/contactApi';
 import { ThreeDots } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import styles from './ContactsList.module.css';
@@ -10,20 +10,25 @@ const ContactListItem = ({ id, name, number }) => {
     { isError, isLoading: isDeleting, isSuccess: isDeleted },
   ] = useDeleteContactMutation();
 
-  isDeleted && toast.success(` ${name} is deleted`);
-  isError && toast.success(` ${name} can't be deleted`);
+  const onDeleteContact = () => {
+    deleteContact(id);
+
+    isDeleted && toast.success(` ${name} is deleted`);
+    isError && toast.success(` ${name} can't be deleted`);
+  };
 
   return (
     <li className={styles.Item}>
       <p className={styles.Name}>{name}:</p>
       <p className={styles.Number}>{number}</p>
-      {isDeleting ? (
-        <ThreeDots color="gray" height={30} width={80} />
-      ) : (
-        <button className={styles.Btn} onClick={() => deleteContact(id)}>
-          Delete
-        </button>
-      )}
+
+      <button className={styles.Btn} onClick={onDeleteContact}>
+        {isDeleting ? (
+          <ThreeDots color="gray" height={20} width={70} />
+        ) : (
+          'Delete'
+        )}
+      </button>
     </li>
   );
 };

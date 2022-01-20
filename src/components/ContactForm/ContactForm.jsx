@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {
   useAddContactMutation,
   useGetAllContactsQuery,
-} from 'redux/contacts/slice';
+} from 'redux/contacts/contactApi';
 import FORM_CONFIG from 'formConfig';
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
