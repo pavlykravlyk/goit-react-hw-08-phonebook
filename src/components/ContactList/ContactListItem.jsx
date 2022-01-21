@@ -10,19 +10,17 @@ const ContactListItem = ({ id, name, number }) => {
     { isError, isLoading: isDeleting, isSuccess: isDeleted },
   ] = useDeleteContactMutation();
 
-  const onDeleteContact = () => {
-    deleteContact(id);
-
-    isDeleted && toast.success(` ${name} is deleted`);
+useEffect(()=>{
+isDeleted && toast.success(` ${name} is deleted`);
     isError && toast.success(` ${name} can't be deleted`);
-  };
+},[isDeleted, isError])
 
   return (
     <li className={styles.Item}>
       <p className={styles.Name}>{name}:</p>
       <p className={styles.Number}>{number}</p>
 
-      <button className={styles.Btn} onClick={onDeleteContact}>
+      <button className={styles.Btn} onClick={()=>deleteContact(id)}>
         {isDeleting ? (
           <ThreeDots color="gray" height={20} width={70} />
         ) : (
