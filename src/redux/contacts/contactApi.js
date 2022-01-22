@@ -22,11 +22,10 @@ export const contactApi = createApi({
     }),
 
     addContact: builder.mutation({
-      query: (name, number) => ({
+      query: contactContent => ({
         url: `contacts`,
         method: 'POST',
-        body: name,
-        number,
+        body: contactContent,
       }),
       invalidatesTags: ['Contact'],
     }),
