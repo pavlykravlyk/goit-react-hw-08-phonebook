@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDeleteContactMutation } from 'redux/contacts/contactApi';
+import { useDeleteContactMutation } from 'redux/contacts/contact-api';
 import { ThreeDots } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import styles from './ContactsList.module.css';

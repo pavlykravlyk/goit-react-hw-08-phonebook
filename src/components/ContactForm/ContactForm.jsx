@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {
   useAddContactMutation,
   useGetAllContactsQuery,
-} from 'redux/contacts/contactApi';
+} from 'redux/contacts/contact-api';
 import FORM_CONFIG from 'formConfig';
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
@@ -87,4 +87,5 @@ FORM_CONFIG.PropTypes = {
   name: PropTypes.string.isRequired,
   pattern: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
 };
