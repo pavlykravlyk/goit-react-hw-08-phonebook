@@ -9,7 +9,7 @@ export default function ContactList() {
   const dispatch = useDispatch();
   const filterValue = useSelector(getFilterValue);
   const filteredContacts = useSelector(getFilteredContacts);
-  const { isLoading, isSuccess, isError } = useGetAllContactsQuery();
+  const { isLoading, isSuccess } = useGetAllContactsQuery();
 
   return (
     <>
@@ -35,8 +35,6 @@ export default function ContactList() {
           </ul>
         </>
       )}
-
-      {isError && console.log('ERROR')}
     </>
   );
 }

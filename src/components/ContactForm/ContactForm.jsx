@@ -10,75 +10,72 @@ import { ThreeDots } from 'react-loader-spinner';
 import styles from './ContactForm.module.css';
 
 export default function Phonebook() {
-  const [newName, setNewName] = useState('');
-  const [newNumber, setNewNumber] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-
-  const handleInputChange = ({ target: { name, value } }) => {
-    name === 'name' && setNewName(value);
-    name === 'number' && setNewNumber(value);
-    name === 'email' && setNewEmail(value);
-  };
-
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const contactContent = { name, number };
   const { data: allContacts } = useGetAllContactsQuery();
   const [addContact, { isError, isLoading: isAdding, isSuccess: isAdded }] =
     useAddContactMutation();
 
-  const contactContent = {
-    name: newName,
-    number: newNumber,
-    email: newEmail,
+  const handleInputChange = ({ target: { name, value } }) => {
+    name === 'name' && setName(value);
+    name === 'number' && setNumber(value);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    allContacts.some(({ name }) => name === newName)
-      ? toast.error(`${newName} is already in contacts`)
+    allContacts.some(contact => contact.name === name)
+      ? toast.error(`${name} is already in contacts`)
       : addContact(contactContent);
   };
 
   useEffect(() => {
-    isAdded && toast.success(`${newName} has successfully added`);
-    setNewName('');
-    setNewNumber('');
-    setNewEmail('');
+    isAdded && toast.success(`${name} has successfully added`);
+    setName('');
+    setNumber('');
   }, [isAdded]);
 
   useEffect(() => {
-    isError && toast.error(`${newName} can't be added`);
+    isError && toast.error(`${name} can't be added`);
   }, [isError]);
 
   return (
-    <form onSubmit={handleFormSubmit} className={styles.Form}>
-      <ul className={styles.List}>
-        {FORM_CONFIG.map(({ name, type, pattern, title, required }) => (
-          <li key={name} className={styles.Item}>
-            <label className={styles.Label}>
-              {name}
-              <input
-                className={styles.Input}
-                type={type}
-                name={name}
-                pattern={pattern}
-                title={title}
-                value={contactContent[name]}
-                onChange={handleInputChange}
-                required={required}
-              />
-            </label>
-          </li>
-        ))}
-      </ul>
+    <>
+      <h1 className={styles.Title}>create</h1>
 
-      <button type="submit" className={styles.Btn} disabled={isAdding}>
-        {isAdding ? (
-          <ThreeDots color="gray" height={20} width={90} />
-        ) : (
-          'add contact'
-        )}
-      </button>
-    </form>
+      <form onSubmit={handleFormSubmit} className={styles.Form}>
+        <ul className={styles.List}>
+          {FORM_CONFIG.map(
+            ({ name: fieldName, type, pattern, title, required }) => (
+              <li key={fieldName} className={styles.Item}>
+                <label className={styles.Label}>
+                  {fieldName}
+                  <input
+                    className={styles.Input}
+                    type={type}
+                    name={fieldName}
+                    pattern={pattern}
+                    title={title}
+                    value={contactContent[fieldName]}
+                    onChange={handleInputChange}
+                    required={required}
+                  />
+                </label>
+              </li>
+            ),
+          )}
+        </ul>
+
+        <button type="submit" className={styles.Btn} disabled={isAdding}>
+          {isAdding ? (
+            <ThreeDots color="gray" height={20} width={90} />
+          ) : (
+            'add contact'
+          )}
+        </button>
+      </form>
+    </>
   );
 }
 

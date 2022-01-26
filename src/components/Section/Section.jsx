@@ -5,6 +5,6 @@ const Section = ({ children }) => {
   return <section className={styles.Section}>{children}</section>;
 };
 
-Section.propTypes = { children: PropTypes.array.isRequired };
+Section.propTypes = { children: PropTypes.node };
 
 export default Section;

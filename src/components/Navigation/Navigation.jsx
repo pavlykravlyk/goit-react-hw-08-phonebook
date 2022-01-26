@@ -1,9 +1,6 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from 'redux/auth';
-import { useLogOutMutation } from 'redux/auth';
-import { getUserName } from 'redux/auth';
+import { useLogOutMutation, getIsLoggedIn, getUserName } from 'redux/auth';
 
 import styles from './Navigation.module.css';
 

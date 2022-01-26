@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useAddUserMutation } from 'redux/auth';
+import styles from '../ContactForm/ContactForm.module.css';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [addUser, { isSuccess }] = useAddUserMutation();
+  const [addUser, { isSuccess, isLoading }] = useAddUserMutation();
   const userContent = { name, email, password };
 
   const handleInputChange = ({ target: { name, value } }) => {
@@ -50,28 +51,40 @@ const Register = () => {
   ];
 
   return (
-    <form onSubmit={handleFormSubmit} action="" autoComplete="off">
-      <ul>
-        {REGISTER_FORM_CONFIG.map(field => (
-          <li key={field.name}>
-            <label>
-              {field.name}
-              <input
-                type={field.type}
-                name={field.name}
-                title={field.title}
-                value={userContent[field.name]}
-                onChange={handleInputChange}
-                required={field.required}
-                autoComplete="false"
-              />
-            </label>
-          </li>
-        ))}
-      </ul>
+    <>
+      <h1 className={styles.Title}>register</h1>
 
-      <button type="submit">submit</button>
-    </form>
+      <form
+        onSubmit={handleFormSubmit}
+        className={styles.Form}
+        action=""
+        autoComplete="off"
+      >
+        <ul className={styles.List}>
+          {REGISTER_FORM_CONFIG.map(field => (
+            <li key={field.name} className={styles.Item}>
+              <label className={styles.Label}>
+                {field.name}
+                <input
+                  className={styles.Input}
+                  type={field.type}
+                  name={field.name}
+                  title={field.title}
+                  value={userContent[field.name]}
+                  onChange={handleInputChange}
+                  required={field.required}
+                  autoComplete="false"
+                />
+              </label>
+            </li>
+          ))}
+        </ul>
+
+        <button type="submit" className={styles.Btn} disabled={isLoading}>
+          register
+        </button>
+      </form>
+    </>
   );
 };
 
