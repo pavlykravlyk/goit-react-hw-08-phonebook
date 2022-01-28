@@ -14,8 +14,8 @@ import Navigation from 'components/Navigation/Navigation';
 
 const ContactList = lazy(() => import('components/ContactList/ContactList'));
 const ContactForm = lazy(() => import('components/ContactForm/ContactForm'));
-const LoginForm = lazy(() => import('components/Navigation/LoginForm'));
-const RegisterForm = lazy(() => import('components/Navigation/RegisterForm'));
+const LoginForm = lazy(() => import('components/LoginForm/LoginForm'));
+const RegisterForm = lazy(() => import('components/RegisterForm/RegisterForm'));
 
 export default function App() {
   const [currentUser] = useCurrentUserMutation();

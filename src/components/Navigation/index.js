@@ -1,4 +1,4 @@
 export * from './Navigation';
-export * from './RegisterForm';
-export * from './LoginForm';
+export * from '../RegisterForm/RegisterForm';
+export * from '../LoginForm/LoginForm';
 export { default } from './LoginFormConfig.json';

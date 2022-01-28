@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLogInMutation } from 'redux/auth';
-import LOGIN_FORM_CONFIG from '.';
+import LOGIN_FORM_CONFIG from './LoginFormConfig.json';
 import styles from '../ContactForm/ContactForm.module.css';
 
 const Login = () => {

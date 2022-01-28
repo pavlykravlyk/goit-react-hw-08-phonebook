@@ -46,17 +46,3 @@
   background-color: gray;
   color: white;
 }
-
-.Label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.Input {
-  min-width: 250px;
-  min-height: 25px;
-  margin-top: 10px;
-  border: 1px solid gray;
-  border-radius: 4px;
-}

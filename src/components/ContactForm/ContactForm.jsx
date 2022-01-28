@@ -4,7 +4,7 @@ import {
   useAddContactMutation,
   useGetAllContactsQuery,
 } from 'redux/contacts/contact-api';
-import FORM_CONFIG from 'formConfig';
+import FORM_CONFIG from './contactFormConfig';
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
 import styles from './ContactForm.module.css';

@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogOutMutation, getIsLoggedIn, getUserName } from 'redux/auth';
-
 import styles from './Navigation.module.css';
 
 const Navigation = () => {
