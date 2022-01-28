@@ -17,17 +17,19 @@ const Navigation = () => {
               home
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/contacts" className={styles.NavLink}>
-              contacts
-            </NavLink>
-          </li>
           {isLoggedIn && (
-            <li>
-              <NavLink to="/create" className={styles.NavLink}>
-                create
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/contacts" className={styles.NavLink}>
+                  contacts
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/create" className={styles.NavLink}>
+                  create
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </nav>

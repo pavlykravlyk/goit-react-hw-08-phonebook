@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { contactApi, selectContactsResult } from '.';
+import { selectContactsResult } from './contact-api';
 
 const selectAllContacts = createSelector(
   [selectContactsResult],

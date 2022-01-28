@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import {
   useAddContactMutation,
   useGetAllContactsQuery,
@@ -8,6 +9,7 @@ import FORM_CONFIG from './contactFormConfig';
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
 import styles from './ContactForm.module.css';
+import ButtonWithLoader from 'components/ButtonWithLoader';
 
 export default function Phonebook() {
   const [name, setName] = useState('');
@@ -67,14 +69,14 @@ export default function Phonebook() {
           )}
         </ul>
 
-        <button type="submit" className={styles.Btn} disabled={isAdding}>
-          {isAdding ? (
-            <ThreeDots color="gray" height={20} width={90} />
-          ) : (
-            'add contact'
-          )}
-        </button>
+        <ButtonWithLoader
+          text="add contact"
+          loader={isAdding}
+          disabled={isAdding}
+        ></ButtonWithLoader>
       </form>
+
+      {isAdded && <Navigate to="/contacts" />}
     </>
   );
 }

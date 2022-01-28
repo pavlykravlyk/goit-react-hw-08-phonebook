@@ -12,7 +12,7 @@
     "modern-normalize": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-loader-spinner": "^5.0.6",
+    "react-loader-spinner": "^5.1.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "netlify deploy -p",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

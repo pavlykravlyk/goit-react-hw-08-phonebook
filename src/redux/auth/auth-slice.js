@@ -7,6 +7,7 @@ export const authSlice = createSlice({
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    isRefreshing: false,
   },
   extraReducers: builder => {
     builder.addMatcher(addUser.matchFulfilled, (state, { payload }) => {
@@ -27,9 +28,14 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
     });
 
+    builder.addMatcher(currentUser.matchPending, state => {
+      state.isRefreshing = true;
+    });
+
     builder.addMatcher(currentUser.matchFulfilled, (state, { payload }) => {
       state.user = payload;
       state.isLoggedIn = true;
+      state.isRefreshing = false;
     });
   },
 });
