@@ -23,17 +23,19 @@ const Navigation = () => {
               contacts
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/create" className={styles.NavLink}>
-              create
-            </NavLink>
-          </li>
+          {isLoggedIn && (
+            <li>
+              <NavLink to="/create" className={styles.NavLink}>
+                create
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
 
       {isLoggedIn ? (
         <>
-          <p>{userName}</p>
+          <p>Welcome: {userName}</p>
           <button type="button" onClick={() => logOut()}>
             logout
           </button>
