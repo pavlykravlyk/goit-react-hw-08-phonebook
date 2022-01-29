@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   useDeleteContactMutation,
-  useEditContactMutation,
+  // useEditContactMutation,
 } from 'redux/contacts/contact-api';
 import { ThreeDots } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ import {
   Name,
   Number,
   DeleteContactButton,
-  EditContactButton,
+  // EditContactButton,
 } from './ContactList.styled';
 
 const ContactListItem = ({ id, name, number }) => {
@@ -22,10 +22,10 @@ const ContactListItem = ({ id, name, number }) => {
     { isError: isDeleteError, isLoading: isDeleting, isSuccess: isDeleted },
   ] = useDeleteContactMutation();
 
-  const [
-    editContact,
-    { isError: isEditError, isLoading: isEditing, isSuccess: isEdited },
-  ] = useEditContactMutation();
+  // const [
+  //   editContact,
+  //   { isError: isEditError, isLoading: isEditing, isSuccess: isEdited },
+  // ] = useEditContactMutation();
 
   useEffect(() => {
     isDeleted && toast.warn(` ${name} is deleted`);

@@ -9,6 +9,8 @@ export const Header = styled.header`
   border-bottom: 2px solid gray;
 `;
 
+export const MainNav = styled.nav``;
+
 export const List = styled.ul`
   display: flex;
   margin-top: 0;

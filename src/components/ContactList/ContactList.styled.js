@@ -64,3 +64,5 @@ export const EditContactButton = styled.button`
     color: white;
   }
 `;
+
+export const Message = styled.p``;

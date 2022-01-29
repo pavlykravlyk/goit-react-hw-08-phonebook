@@ -7,6 +7,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+  padding: 4px;
   min-width: 250px;
   min-height: 35px;
   margin-top: 10px;
@@ -14,7 +15,6 @@ export const Input = styled.input`
   border-radius: 4px;
 
   &::placeholder {
-    padding-left: 4px;
     text-transform: capitalize;
   }
 `;

@@ -42,6 +42,11 @@ export const ContactFormInput = styled.input`
   border: 2px solid gray;
   border-radius: 4px;
   padding-left: 5px;
+
+  &::placeholder {
+    font-size: 16px;
+    color: lightgray;
+  }
 `;
 
 export const AddContactButton = styled.button`

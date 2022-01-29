@@ -37,14 +37,14 @@ export const contactApi = createApi({
       invalidatesTags: ['Contact'],
     }),
 
-    editContact: builder.mutation({
-      query: contact => ({
-        url: `contacts/${contact.id}`,
-        method: 'PATCH',
-        body: contact,
-      }),
-      invalidatesTags: ['Contact'],
-    }),
+    // editContact: builder.mutation({
+    //   query: contact => ({
+    //     url: `contacts/${contact.id}`,
+    //     method: 'PATCH',
+    //     body: contact,
+    //   }),
+    //   invalidatesTags: ['Contact'],
+    // }),
   }),
 });
 
@@ -52,7 +52,7 @@ export const {
   useGetAllContactsQuery,
   useDeleteContactMutation,
   useAddContactMutation,
-  useEditContactMutation,
+  // useEditContactMutation,
 } = contactApi;
 
 export const selectContactsResult =
