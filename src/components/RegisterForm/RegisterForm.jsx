@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useAddUserMutation } from 'redux/auth';
-import styles from '../ContactForm/ContactForm.module.css';
+import REGISTER_FORM_CONFIG from './registerFormConfig.json';
+import {
+  RegisterTitle,
+  RegisterForm,
+  RegisterList,
+  RegisterItem,
+  RegisterLabel,
+  RegisterInput,
+  RegisterButton,
+} from './RegisterForm.styled';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -29,44 +38,17 @@ const Register = () => {
     }
   }, [isSuccess]);
 
-  const REGISTER_FORM_CONFIG = [
-    {
-      type: 'text',
-      name: 'name',
-      title: 'NAME',
-      required: true,
-    },
-    {
-      type: 'email',
-      name: 'email',
-      title: 'EMAIL',
-      required: true,
-    },
-    {
-      type: 'password',
-      name: 'password',
-      title: 'PASSWORD',
-      required: true,
-    },
-  ];
-
   return (
     <>
-      <h1 className={styles.Title}>register</h1>
+      <RegisterTitle>register</RegisterTitle>
 
-      <form
-        onSubmit={handleFormSubmit}
-        className={styles.Form}
-        action=""
-        autoComplete="off"
-      >
-        <ul className={styles.List}>
+      <RegisterForm onSubmit={handleFormSubmit} autoComplete="off">
+        <RegisterList>
           {REGISTER_FORM_CONFIG.map(field => (
-            <li key={field.name} className={styles.Item}>
-              <label className={styles.Label}>
+            <RegisterItem key={field.name}>
+              <RegisterLabel>
                 {field.name}
-                <input
-                  className={styles.Input}
+                <RegisterInput
                   type={field.type}
                   name={field.name}
                   title={field.title}
@@ -75,15 +57,15 @@ const Register = () => {
                   required={field.required}
                   autoComplete="false"
                 />
-              </label>
-            </li>
+              </RegisterLabel>
+            </RegisterItem>
           ))}
-        </ul>
+        </RegisterList>
 
-        <button type="submit" className={styles.Btn} disabled={isLoading}>
+        <RegisterButton type="submit" disabled={isLoading}>
           register
-        </button>
-      </form>
+        </RegisterButton>
+      </RegisterForm>
     </>
   );
 };

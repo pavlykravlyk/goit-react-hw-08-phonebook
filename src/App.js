@@ -9,7 +9,7 @@ import PublicRoute from './components/PublicRoute';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Container from 'components/Container/Container';
-import Section from './components/Section/Section';
+import Section from 'components/Section';
 import Navigation from 'components/Navigation/Navigation';
 
 const Home = lazy(() => import('components/Home'));
@@ -37,10 +37,10 @@ export default function App() {
           <>
             <Navigation />
 
-            <Section>
-              <Suspense
-                fallback={<ThreeDots color="gray" height={100} width={100} />}
-              >
+            <Suspense
+              fallback={<ThreeDots color="gray" height={100} width={100} />}
+            >
+              <Section>
                 <Routes>
                   <Route
                     path="/"
@@ -87,8 +87,8 @@ export default function App() {
                     }
                   />
                 </Routes>
-              </Suspense>
-            </Section>
+              </Section>
+            </Suspense>
           </>
         )}
       </Container>

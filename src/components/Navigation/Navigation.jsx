@@ -1,61 +1,44 @@
-import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useLogOutMutation, getIsLoggedIn, getUserName } from 'redux/auth';
-import styles from './Navigation.module.css';
+import { getIsLoggedIn } from 'redux/auth';
+import UserMenu from 'components/UserMenu';
+import { Header, List, Item, Link } from './Navigation.styled';
 
 const Navigation = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);
-  const userName = useSelector(getUserName);
-  const [logOut] = useLogOutMutation();
 
   return (
-    <header className={styles.header}>
+    <Header>
       <nav>
-        <ul className={styles.list}>
-          <li className={styles.item}>
-            <NavLink to="/" className={styles.NavLink}>
-              home
-            </NavLink>
-          </li>
+        <List>
+          <Item>
+            <Link to="/">home</Link>
+          </Item>
           {isLoggedIn && (
             <>
-              <li>
-                <NavLink to="/contacts" className={styles.NavLink}>
-                  contacts
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/create" className={styles.NavLink}>
-                  create
-                </NavLink>
-              </li>
+              <Item>
+                <Link to="/contacts">contacts</Link>
+              </Item>
+              <Item>
+                <Link to="/create">create</Link>
+              </Item>
             </>
           )}
-        </ul>
+        </List>
       </nav>
 
       {isLoggedIn ? (
-        <>
-          <p>Welcome: {userName}</p>
-          <button type="button" onClick={() => logOut()}>
-            logout
-          </button>
-        </>
+        <UserMenu />
       ) : (
-        <ul className={styles.list}>
-          <li className={styles.item}>
-            <NavLink to="/register" className={styles.NavLink}>
-              register
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" className={styles.NavLink}>
-              login
-            </NavLink>
-          </li>
-        </ul>
+        <List>
+          <Item>
+            <Link to="/register">register</Link>
+          </Item>
+          <Item>
+            <Link to="/login">login</Link>
+          </Item>
+        </List>
       )}
-    </header>
+    </Header>
   );
 };
 

@@ -7,17 +7,26 @@ import {
 } from 'redux/contacts/contact-api';
 import FORM_CONFIG from './contactFormConfig';
 import { toast } from 'react-toastify';
-import { ThreeDots } from 'react-loader-spinner';
-import styles from './ContactForm.module.css';
-import ButtonWithLoader from 'components/ButtonWithLoader';
+import { TailSpin } from 'react-loader-spinner';
+import {
+  ContactFormTitle,
+  ContactForm,
+  ContactFormList,
+  ContactFormItem,
+  ContactFormLabel,
+  ContactFormInput,
+  AddContactButton,
+} from './ContactForm.styled';
 
-export default function Phonebook() {
+const Phonebook = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contactContent = { name, number };
+
   const { data: allContacts } = useGetAllContactsQuery();
   const [addContact, { isError, isLoading: isAdding, isSuccess: isAdded }] =
     useAddContactMutation();
+
+  const contactContent = { name, number };
 
   const handleInputChange = ({ target: { name, value } }) => {
     name === 'name' && setName(value);
@@ -44,42 +53,45 @@ export default function Phonebook() {
 
   return (
     <>
-      <h1 className={styles.Title}>create</h1>
+      <ContactFormTitle>create</ContactFormTitle>
 
-      <form onSubmit={handleFormSubmit} className={styles.Form}>
-        <ul className={styles.List}>
+      <ContactForm onSubmit={handleFormSubmit}>
+        <ContactFormList>
           {FORM_CONFIG.map(
-            ({ name: fieldName, type, pattern, title, required }) => (
-              <li key={fieldName} className={styles.Item}>
-                <label className={styles.Label}>
+            ({
+              type,
+              name: fieldName,
+              placeholder,
+              pattern,
+              title,
+              required,
+            }) => (
+              <ContactFormItem key={fieldName}>
+                <ContactFormLabel>
                   {fieldName}
-                  <input
-                    className={styles.Input}
+                  <ContactFormInput
                     type={type}
-                    name={fieldName}
-                    pattern={pattern}
                     title={title}
+                    name={fieldName}
+                    placeholder={placeholder}
+                    pattern={pattern}
+                    required={required}
                     value={contactContent[fieldName]}
                     onChange={handleInputChange}
-                    required={required}
                   />
-                </label>
-              </li>
+                </ContactFormLabel>
+              </ContactFormItem>
             ),
           )}
-        </ul>
+        </ContactFormList>
 
-        <ButtonWithLoader
-          text="add contact"
-          loader={isAdding}
-          disabled={isAdding}
-        ></ButtonWithLoader>
-      </form>
+        <AddContactButton disabled={isAdding}>add contact</AddContactButton>
+      </ContactForm>
 
       {isAdded && <Navigate to="/contacts" />}
     </>
   );
-}
+};
 
 FORM_CONFIG.PropTypes = {
   type: PropTypes.string.isRequired,
@@ -88,3 +100,5 @@ FORM_CONFIG.PropTypes = {
   title: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
 };
+
+export default Phonebook;

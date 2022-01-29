@@ -1,20 +1,26 @@
 import styled from 'styled-components';
-import { TailSpin } from 'react-loader-spinner';
 
-const Button = styled.button`
+export const UserName = styled.p`
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 15px;
+  color: gray;
+  text-transform: capitalize;
+  font-size: 18px;
+`;
+
+export const LogOutButton = styled.button`
   padding: 8px 16px;
   min-width: 120px;
   min-height: 30px;
-  cursor: pointer;
   border-radius: 4px;
   background: transparent;
   border: 2px solid gray;
   color: gray;
+
   text-transform: capitalize;
   font-size: 16px;
   font-weight: 500;
+  cursor: pointer;
 
   &:hover,
   :focus-visible {
@@ -22,13 +28,3 @@ const Button = styled.button`
     color: white;
   }
 `;
-
-const ButtonWithLoader = ({ text, loader = false }) => {
-  return (
-    <Button>
-      {loader ? <TailSpin color="gray" height={20} width={30} /> : text}
-    </Button>
-  );
-};
-
-export default ButtonWithLoader;

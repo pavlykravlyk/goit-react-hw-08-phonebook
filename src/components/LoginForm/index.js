@@ -1,2 +1,2 @@
 export * from './LoginForm';
-export * from './LoginFormConfig.json';
+export * from './LoginForm.styled';
