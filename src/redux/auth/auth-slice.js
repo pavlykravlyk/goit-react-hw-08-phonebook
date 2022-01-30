@@ -37,5 +37,11 @@ export const authSlice = createSlice({
       state.isLoggedIn = true;
       state.isRefreshing = false;
     });
+
+    builder.addMatcher(currentUser.matchRejected, state => {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    });
   },
 });
