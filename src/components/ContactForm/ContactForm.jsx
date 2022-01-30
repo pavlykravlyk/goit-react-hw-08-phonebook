@@ -19,36 +19,30 @@ import {
 } from './ContactForm.styled';
 
 const Phonebook = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
+  const initialState = { name: '', number: '' };
+  const [contact, setContact] = useState(initialState);
   const { data: allContacts } = useGetAllContactsQuery();
   const [addContact, { isError, isLoading: isAdding, isSuccess: isAdded }] =
     useAddContactMutation();
 
-  const contactContent = { name, number };
-
-  const handleInputChange = ({ target: { name, value } }) => {
-    name === 'name' && setName(value);
-    name === 'number' && setNumber(value);
-  };
+  const handleInputChange = ({ target: { name, value } }) =>
+    setContact(state => ({ ...state, [name]: value }));
 
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    allContacts.some(contact => contact.name === name)
-      ? toast.error(`${name} is already in contacts`)
-      : addContact(contactContent);
+    allContacts.some(({ name }) => name === contact.name)
+      ? toast.error(`${contact.name} is already in contacts`)
+      : addContact(contact);
   };
 
   useEffect(() => {
-    isAdded && toast.success(`${name} has successfully added`);
-    setName('');
-    setNumber('');
+    isAdded && toast.success(`${contact.name} has successfully added`);
+    setContact(initialState);
   }, [isAdded]);
 
   useEffect(() => {
-    isError && toast.error(`${name} can't be added`);
+    isError && toast.error(`${contact.name} can't be added`);
   }, [isError]);
 
   return (
@@ -58,25 +52,18 @@ const Phonebook = () => {
       <ContactForm onSubmit={handleFormSubmit}>
         <ContactFormList>
           {FORM_CONFIG.map(
-            ({
-              type,
-              name: fieldName,
-              placeholder,
-              pattern,
-              title,
-              required,
-            }) => (
-              <ContactFormItem key={fieldName}>
+            ({ type, name, placeholder, pattern, title, required }) => (
+              <ContactFormItem key={name}>
                 <ContactFormLabel>
-                  {fieldName}
+                  {name}
                   <ContactFormInput
                     type={type}
                     title={title}
-                    name={fieldName}
+                    name={name}
                     placeholder={placeholder}
                     pattern={pattern}
                     required={required}
-                    value={contactContent[fieldName]}
+                    value={contact[name]}
                     onChange={handleInputChange}
                   />
                 </ContactFormLabel>

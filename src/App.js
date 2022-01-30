@@ -16,7 +16,7 @@ const Home = lazy(() => import('components/Home'));
 const ContactList = lazy(() => import('components/ContactList/ContactList'));
 const Filter = lazy(() => import('components/Filter/Filter'));
 const ContactForm = lazy(() => import('components/ContactForm/ContactForm'));
-const LoginForm = lazy(() => import('components/LoginForm/LoginForm'));
+const LoginForm = lazy(() => import('components/LoginForm'));
 const RegisterForm = lazy(() => import('components/RegisterForm/RegisterForm'));
 
 export default function App() {
@@ -93,7 +93,7 @@ export default function App() {
         )}
       </Container>
 
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={5000} />
     </div>
   );
 }

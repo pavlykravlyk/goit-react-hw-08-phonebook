@@ -12,30 +12,20 @@ import {
 } from './RegisterForm.styled';
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const initialState = { name: '', email: '', password: '' };
+  const [user, setUser] = useState(initialState);
   const [addUser, { isSuccess, isLoading }] = useAddUserMutation();
-  const userContent = { name, email, password };
 
-  const handleInputChange = ({ target: { name, value } }) => {
-    name === 'name' && setName(value);
-    name === 'email' && setEmail(value);
-    name === 'password' && setPassword(value);
-  };
+  const handleInputChange = ({ target: { name, value } }) =>
+    setUser(state => ({ ...state, [name]: value }));
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    addUser(userContent);
+    addUser(user);
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setName('');
-      setEmail('');
-      setPassword('');
-    }
+    isSuccess && setUser(initialState);
   }, [isSuccess]);
 
   return (
@@ -44,17 +34,17 @@ const Register = () => {
 
       <RegisterForm onSubmit={handleFormSubmit} autoComplete="off">
         <RegisterList>
-          {REGISTER_FORM_CONFIG.map(field => (
-            <RegisterItem key={field.name}>
+          {REGISTER_FORM_CONFIG.map(({ name, type, title, required }) => (
+            <RegisterItem key={name}>
               <RegisterLabel>
-                {field.name}
+                {name}
                 <RegisterInput
-                  type={field.type}
-                  name={field.name}
-                  title={field.title}
-                  value={userContent[field.name]}
+                  type={type}
+                  name={name}
+                  title={title}
+                  value={user[name]}
                   onChange={handleInputChange}
-                  required={field.required}
+                  required={required}
                   autoComplete="false"
                 />
               </RegisterLabel>
