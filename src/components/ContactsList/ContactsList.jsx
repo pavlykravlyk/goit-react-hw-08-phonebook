@@ -1,11 +1,11 @@
 import { useGetAllContactsQuery, getFilteredContacts } from 'redux/contacts';
-import ContactListItem from './ContactListItem';
+import ContactListItem from './ContactsListItem';
 import { ThreeDots } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
-import { List, Message } from './ContactList.styled';
+import { ContactList, ContactMessage } from './ContactList.styled';
 import { NavLink } from 'react-router-dom';
 
-export default function ContactList() {
+const ContactsList = () => {
   const filteredContacts = useSelector(getFilteredContacts);
   const { data: allContacts, isLoading, isSuccess } = useGetAllContactsQuery();
 
@@ -14,17 +14,19 @@ export default function ContactList() {
       {isLoading && <ThreeDots color="gray" height={80} width={80} />}
 
       {isSuccess && allContacts.length > 0 ? (
-        <List>
+        <ContactList>
           {filteredContacts.map(contact => (
             <ContactListItem key={contact.id} {...contact} />
           ))}
-        </List>
+        </ContactList>
       ) : (
         <>
-          <Message>You haven't any contacts.</Message>
+          <ContactMessage>You haven't any contacts.</ContactMessage>
           <NavLink to="/create">add contact</NavLink>
         </>
       )}
     </>
   );
-}
+};
+
+export default ContactsList;
