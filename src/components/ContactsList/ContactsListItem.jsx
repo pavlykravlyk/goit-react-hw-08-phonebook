@@ -54,7 +54,7 @@ const ContactListItem = ({ id, name, number }) => {
     isDeleteError && toast.error(` ${name} can't be deleted`);
     isEdited && toast.success(` ${name} was successfully updated`);
     isEditError && toast.error(` ${name} can't be edited`);
-  }, [name, isDeleted, isDeleteError, isEdited, isEditError]);
+  }, [isDeleted, isDeleteError, isEdited, isEditError]);
 
   return (
     <ContactItem>
