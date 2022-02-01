@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAddUserMutation } from 'redux/auth';
 import REGISTER_FORM_CONFIG from './registerFormConfig.json';
+import { toast } from 'react-toastify';
+import { ThreeDots } from 'react-loader-spinner';
 import {
   RegisterTitle,
   RegisterForm,
@@ -12,9 +14,8 @@ import {
 } from './RegisterForm.styled';
 
 const Register = () => {
-  const initialState = { name: '', email: '', password: '' };
-  const [user, setUser] = useState(initialState);
-  const [addUser, { isSuccess, isLoading }] = useAddUserMutation();
+  const [user, setUser] = useState({ name: '', email: '', password: '' });
+  const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation();
 
   const handleInputChange = ({ target: { name, value } }) =>
     setUser(state => ({ ...state, [name]: value }));
@@ -25,12 +26,16 @@ const Register = () => {
   };
 
   useEffect(() => {
-    isSuccess && setUser(initialState);
-  }, [isSuccess]);
+    isSuccess && setUser({ name: '', email: '', password: '' });
+    isError &&
+      toast.error(
+        'Sorry you must enter a valid name, email and password to sign up',
+      );
+  }, [isError, isSuccess]);
 
   return (
     <>
-      <RegisterTitle>register</RegisterTitle>
+      <RegisterTitle>sign up</RegisterTitle>
 
       <RegisterForm onSubmit={handleFormSubmit} autoComplete="off">
         <RegisterList>
@@ -52,8 +57,16 @@ const Register = () => {
           ))}
         </RegisterList>
 
-        <RegisterButton type="submit" disabled={isLoading}>
-          register
+        <RegisterButton disabled={isLoading}>
+          {isLoading ? (
+            <ThreeDots
+              ariaLabel="three-dots-loading"
+              height={18}
+              color="gray"
+            />
+          ) : (
+            'sign up'
+          )}
         </RegisterButton>
       </RegisterForm>
     </>

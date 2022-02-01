@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLogInMutation } from 'redux/auth';
 import LOGIN_FORM_CONFIG from './LoginFormConfig.json';
+import { ThreeDots } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
 import {
   LoginFormTitle,
   LoginForm,
@@ -12,9 +14,8 @@ import {
 } from './LoginForm.styled';
 
 const Login = () => {
-  const initialState = { email: '', password: '' };
-  const [user, setUser] = useState(initialState);
-  const [logIn, { isSuccess }] = useLogInMutation();
+  const [user, setUser] = useState({ email: '', password: '' });
+  const [logIn, { isLoading, isSuccess, isError }] = useLogInMutation();
 
   const handleInputChange = ({ target: { name, value } }) =>
     setUser(state => ({ ...state, [name]: value }));
@@ -25,8 +26,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    isSuccess && setUser(initialState);
-  }, [isSuccess]);
+    isSuccess && setUser({ email: '', password: '' });
+    isError &&
+      toast.error('Your login attempt was not successful. Please try again');
+  }, [isError, isSuccess]);
 
   return (
     <>
@@ -52,7 +55,17 @@ const Login = () => {
           ))}
         </LoginFormList>
 
-        <LoginButton type="submit">login</LoginButton>
+        <LoginButton disabled={isLoading}>
+          {isLoading ? (
+            <ThreeDots
+              ariaLabel="three-dots-loading"
+              height={18}
+              color="gray"
+            />
+          ) : (
+            'login'
+          )}
+        </LoginButton>
       </LoginForm>
     </>
   );

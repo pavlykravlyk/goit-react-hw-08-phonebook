@@ -7,7 +7,7 @@ import {
 } from 'redux/contacts/contact-api';
 import FORM_CONFIG from './contactFormConfig';
 import { toast } from 'react-toastify';
-import { TailSpin } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import {
   ContactFormTitle,
   ContactForm,
@@ -72,7 +72,17 @@ const Phonebook = () => {
           )}
         </ContactFormList>
 
-        <AddContactButton disabled={isAdding}>add contact</AddContactButton>
+        <AddContactButton disabled={isAdding}>
+          {isAdding ? (
+            <ThreeDots
+              ariaLabel="three-dots-loading"
+              height={18}
+              color="gray"
+            />
+          ) : (
+            'add contact'
+          )}
+        </AddContactButton>
       </ContactForm>
 
       {isAdded && <Navigate to="/contacts" />}

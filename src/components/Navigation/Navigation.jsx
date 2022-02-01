@@ -21,9 +21,6 @@ const Navigation = () => {
               <Item>
                 <Link to="/create">create</Link>
               </Item>
-              <Item>
-                <Link to="/edit">edit</Link>
-              </Item>
             </>
           )}
         </List>

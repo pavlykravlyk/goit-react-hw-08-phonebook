@@ -16,7 +16,6 @@ const Home = lazy(() => import('components/Home'));
 const ContactsList = lazy(() => import('components/ContactsList'));
 const Filter = lazy(() => import('components/Filter/Filter'));
 const ContactForm = lazy(() => import('components/ContactForm/ContactForm'));
-const EditContactForm = lazy(() => import('components/EditContactForm'));
 const LoginForm = lazy(() => import('components/LoginForm'));
 const RegisterForm = lazy(() => import('components/RegisterForm/RegisterForm'));
 
@@ -84,15 +83,6 @@ export default function App() {
                     element={
                       <PrivateRoute>
                         <ContactForm />
-                      </PrivateRoute>
-                    }
-                  />
-
-                  <Route
-                    path="/edit"
-                    element={
-                      <PrivateRoute>
-                        <EditContactForm />
                       </PrivateRoute>
                     }
                   />

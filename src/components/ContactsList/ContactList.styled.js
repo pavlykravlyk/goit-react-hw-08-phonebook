@@ -3,23 +3,18 @@ import styled from 'styled-components';
 export const ContactList = styled.ul`
   margin-right: auto;
   margin-left: auto;
-  display: flex;
-  flex-direction: column;
   padding-left: 0;
-  width: 250px;
+  width: 360px;
   list-style: none;
 `;
 
 export const ContactItem = styled.li`
-  min-height: 95px;
   display: flex;
-  align-items: center;
-
-  justify-content: space-around;
-  width: 100%;
+  justify-content: space-between;
+  height: 110px;
   border: 2px solid gray;
   border-radius: 4px;
-  padding: 5px;
+  padding: 15px;
 
   &:not(:last-child) {
     margin-bottom: 15px;
@@ -29,6 +24,8 @@ export const ContactItem = styled.li`
 export const ContactWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 `;
 
 export const ContactName = styled.p`
@@ -48,6 +45,7 @@ export const DeleteContactButton = styled.button`
   cursor: pointer;
   border-radius: 4px;
   border: none;
+  text-transform: capitalize;
 
   &:hover,
   &:focus-visible {
@@ -63,6 +61,7 @@ export const EditContactButton = styled.button`
   cursor: pointer;
   border-radius: 4px;
   border: none;
+  text-transform: capitalize;
 
   &:hover,
   &:focus-visible {
@@ -74,18 +73,12 @@ export const EditContactButton = styled.button`
 export const ContactMessage = styled.p``;
 
 //////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
 
 export const EditContactForm = styled.form`
   display: flex;
-  flex-direction: column;
-  margin-right: auto;
-  margin-left: auto;
-  border: 2px solid gray;
-  border-radius: 4px;
-  padding: 20px;
-  width: fit-content;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 `;
 
 export const EditContactFormList = styled.ul`
@@ -95,9 +88,7 @@ export const EditContactFormList = styled.ul`
   list-style: none;
 `;
 
-export const EditContactFormItem = styled.li`
-  margin-bottom: 15px;
-`;
+export const EditContactFormItem = styled.li``;
 
 export const EditContactFormLabel = styled.label`
   display: flex;
@@ -108,7 +99,6 @@ export const EditContactFormLabel = styled.label`
 `;
 
 export const EditContactFormInput = styled.input`
-  min-width: 300px;
   min-height: 30px;
   margin-top: 5px;
   border: 2px solid gray;
@@ -122,23 +112,16 @@ export const EditContactFormInput = styled.input`
 `;
 
 export const UpdateContactButton = styled.button`
-  margin-left: auto;
-  margin-right: auto;
-  padding: 8px 16px;
-  min-width: 120px;
+  padding: 5px;
+  min-width: 80px;
   min-height: 30px;
-  border-radius: 4px;
-  background: transparent;
-  border: 2px solid gray;
-  color: gray;
-
-  text-transform: capitalize;
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  text-transform: capitalize;
 
   &:hover,
-  :focus-visible {
+  &:focus-visible {
     background-color: gray;
     color: white;
   }

@@ -4,7 +4,6 @@ import {
   useDeleteContactMutation,
   useEditContactMutation,
 } from 'redux/contacts/contact-api';
-// import { Navigate, NavLink } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import {
@@ -14,18 +13,15 @@ import {
   ContactNumber,
   DeleteContactButton,
   EditContactButton,
-  ///////////////////
   EditContactForm,
   EditContactFormList,
   EditContactFormItem,
-  // EditContactFormLabel,
   EditContactFormInput,
   UpdateContactButton,
 } from './ContactList.styled';
 import FORM_CONFIG from '../ContactForm/contactFormConfig';
 
 const ContactListItem = ({ id, name, number }) => {
-  // const [isHovering, setIsHovering] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [contact, setContact] = useState({ id, name, number });
 
@@ -50,64 +46,78 @@ const ContactListItem = ({ id, name, number }) => {
     event.preventDefault();
 
     editContact(contact);
-    console.log(contact);
     setIsUpdating(false);
   };
 
   useEffect(() => {
     isDeleted && toast.warn(` ${name} is deleted`);
     isDeleteError && toast.error(` ${name} can't be deleted`);
-  }, [isDeleted, isDeleteError, name]);
-
-  // const handleMouseHover = () => setIsHovering(state => !state);
+    isEdited && toast.success(` ${name} was successfully updated`);
+    isEditError && toast.error(` ${name} can't be edited`);
+  }, [name, isDeleted, isDeleteError, isEdited, isEditError]);
 
   return (
     <ContactItem>
-      {!isUpdating && (
+      {isUpdating ? (
+        <EditContactForm onSubmit={handleFormSubmit}>
+          <EditContactFormList>
+            {FORM_CONFIG.map(field => (
+              <EditContactFormItem key={field.name}>
+                <EditContactFormInput
+                  type={field.type}
+                  title={field.title}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  pattern={field.pattern}
+                  required={field.required}
+                  value={contact[field.name]}
+                  onChange={handleInputChange}
+                />
+              </EditContactFormItem>
+            ))}
+          </EditContactFormList>
+          <ContactWrapper>
+            <UpdateContactButton
+              type="button"
+              disabled={isEditing}
+              onClick={() => setIsUpdating(false)}
+            >
+              cancel
+            </UpdateContactButton>
+            <UpdateContactButton disabled={isEditing}>save</UpdateContactButton>
+          </ContactWrapper>
+        </EditContactForm>
+      ) : (
         <>
           <ContactWrapper>
-            <ContactName>{name}:</ContactName>
+            <ContactName>{name}</ContactName>
             <ContactNumber>{number}</ContactNumber>
           </ContactWrapper>
           <ContactWrapper>
-            <DeleteContactButton onClick={() => deleteContact(id)}>
-              delete
-            </DeleteContactButton>
-            <EditContactButton onClick={() => setIsUpdating(true)}>
+            <EditContactButton
+              type="button"
+              disabled={isDeleting}
+              onClick={() => setIsUpdating(true)}
+            >
               edit
             </EditContactButton>
+            <DeleteContactButton
+              disabled={isDeleting}
+              onClick={() => deleteContact(id)}
+            >
+              {isDeleting ? (
+                <ThreeDots
+                  ariaLabel="three-dots-loading"
+                  height={20}
+                  width={70}
+                  color="gray"
+                />
+              ) : (
+                'delete'
+              )}
+            </DeleteContactButton>
           </ContactWrapper>
         </>
-      )}
-
-      {isUpdating && (
-        <ContactWrapper>
-          <EditContactForm onSubmit={handleFormSubmit}>
-            <EditContactFormList>
-              {FORM_CONFIG.map(field => (
-                <EditContactFormItem key={field.name}>
-                  {/* <EditContactFormLabel> */}
-                  {/* {name} */}
-                  <EditContactFormInput
-                    // type={field.type}
-                    // title={field.title}
-                    name={field.name}
-                    // placeholder={field.placeholder}
-                    // pattern={field.pattern}
-                    required={field.required}
-                    value={contact[field.name]}
-                    onChange={handleInputChange}
-                  />
-                  {/* </EditContactFormLabel> */}
-                </EditContactFormItem>
-              ))}
-            </EditContactFormList>
-            <UpdateContactButton onClick={() => setIsUpdating(false)}>
-              cancel
-            </UpdateContactButton>
-            <UpdateContactButton>save</UpdateContactButton>
-          </EditContactForm>
-        </ContactWrapper>
       )}
     </ContactItem>
   );
