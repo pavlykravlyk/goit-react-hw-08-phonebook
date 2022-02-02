@@ -27,12 +27,15 @@ export const store = configureStore({
     [contactApi.reducerPath]: contactApi.reducer,
     [filterSlice.name]: filterSlice.reducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(contactApi.middleware, authApi.middleware),
+    }),
+    contactApi.middleware,
+    authApi.middleware,
+  ],
   devTools: process.env.NODE_ENV === 'development',
 });
 
