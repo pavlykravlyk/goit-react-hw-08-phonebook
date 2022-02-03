@@ -15,9 +15,15 @@ export const ContactItem = styled.li`
   border: 2px solid gray;
   border-radius: 4px;
   padding: 15px;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:not(:last-child) {
     margin-bottom: 15px;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
   }
 `;
 

@@ -4,6 +4,7 @@ import {
   useDeleteContactMutation,
   useEditContactMutation,
 } from 'redux/contacts/contact-api';
+import Modal from '../Modal';
 import { ThreeDots } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import {
@@ -24,6 +25,7 @@ import FORM_CONFIG from '../ContactForm/contactFormConfig';
 const ContactListItem = ({ id, name, number }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [contact, setContact] = useState({ id, name, number });
+  const [showModal, setShowModal] = useState(false);
 
   const [
     deleteContact,
@@ -47,6 +49,10 @@ const ContactListItem = ({ id, name, number }) => {
 
     editContact(contact);
     setIsUpdating(false);
+  };
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
   useEffect(() => {
@@ -121,6 +127,18 @@ const ContactListItem = ({ id, name, number }) => {
       )}
     </ContactItem>
   );
+
+  // showModal ? (
+  //   <Modal onClose={toggleModal}></Modal>
+  // ) : (
+  //   <li
+  //     onClick={toggleModal}
+  //     >
+  //     <p>{name}:</p>
+  //     <p>{number}</p>
+  //     {isDeleting && <ThreeDots color="gray" height={30} width={80} />}
+  //   </li>
+  // );
 };
 
 export default ContactListItem;

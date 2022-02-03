@@ -3,9 +3,11 @@ import ContactListItem from './ContactsListItem';
 import { ThreeDots } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import { ContactList, ContactMessage } from './ContactList.styled';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AddContactButton } from '../ContactForm/ContactForm.styled';
 
 const ContactsList = () => {
+  const navigate = useNavigate();
   const filteredContacts = useSelector(getFilteredContacts);
   const { data: allContacts, isLoading, isSuccess } = useGetAllContactsQuery();
 
@@ -20,10 +22,13 @@ const ContactsList = () => {
           ))}
         </ContactList>
       ) : (
-        <>
-          <ContactMessage>You haven't any contacts.</ContactMessage>
-          <NavLink to="/create">add contact</NavLink>
-        </>
+        <ContactMessage>You haven't any contacts.</ContactMessage>
+      )}
+
+      {isSuccess && (
+        <AddContactButton type="button" onClick={() => navigate('/create')}>
+          create contact
+        </AddContactButton>
       )}
     </>
   );
